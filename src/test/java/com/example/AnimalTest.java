@@ -8,7 +8,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -18,7 +17,7 @@ public class AnimalTest {
     private static final String ANOTHER_ANIMAL = "Cold-blooded creature";
     private static final String EXCEPTION = "Неизвестный вид животного, используйте значение Травоядное или Хищник";
     private static final String FAMILY_NAMES = "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
-
+    private static final List<String> foodForPredators = List.of("Говядина", "Свинина", "Баранина");
 
     @Test
     public void getFamilyTest(){
@@ -36,14 +35,23 @@ public class AnimalTest {
             String exception = e.getMessage();
             assertTrue(EXCEPTION.equals(exception));
         }
+        throw new AssertionError("None exception was thrown");
     }
 
     @Mock
     Animal animal;
 
     @Test
-    public void getFoodToUnknownAnimalExceptionTest2() throws Exception {
+    public void getFoodVerifyConstructionTest() throws Exception {
         animal.getFood("Травоядное");
         Mockito.verify(animal).getFood(Mockito.anyString());
+    }
+
+    @Test
+    public void getFoodWhenThenReturnConstructionTest() throws Exception{
+        Mockito.when(animal.getFood("Хищник")).thenReturn(foodForPredators); //Assuming the return type is also a List
+        List<String> result = animal.getFood("Хищник"); //Calling the method with the specified argument
+        Mockito.verify(animal).getFood("Хищник"); //Verifying that the method was called with the exact argument
+        assertEquals(foodForPredators, result); //Asserting that the returned list of food is as it is expected
     }
 }

@@ -23,5 +23,8 @@
 hs_err_pid*
 
 .idea
-
-/target
+/target/classes/
+/target/jacoco.exec
+/target/maven-archiver/
+/target/maven-status/
+/target/surefire-reports/

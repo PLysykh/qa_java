@@ -13,8 +13,7 @@ public class CatTest {
 
     private Cat cat;
 
-    @Mock
-    Feline feline;
+    Feline feline = Mockito.mock(Feline.class);
 
     @Test
     public void getSoundTest(){
