@@ -8,8 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AnimalTest {
@@ -31,11 +30,11 @@ public class AnimalTest {
         Animal animal = new Animal();
         try {
             animal.getFood(ANOTHER_ANIMAL);
+            fail("Exception is being expected");
         } catch (Exception e) {
             String exception = e.getMessage();
             assertTrue(EXCEPTION.equals(exception));
         }
-        throw new AssertionError("None exception was thrown");
     }
 
     @Mock
